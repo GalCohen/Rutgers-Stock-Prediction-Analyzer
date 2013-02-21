@@ -1,0 +1,155 @@
+<link href="view/css/Gal.css" rel="stylesheet">
+<div class="tables">
+
+<h4> 
+<?php 
+
+if ($top == true) {
+	$dir = "Top Return Producers";
+} else {
+	$dir = "Bottom Return Producers";
+}
+
+
+if ($timeframe == "1d"){
+	$time = "- 1 Day";
+} else if ($timeframe == "5d") {
+	$time =  "- 5 Day";
+} else if ($timeframe == "30d") {
+	$time =  "- 30 Day";
+} else if ($timeframe == "365d") {
+	$time =  "- 365 Day";
+}
+
+echo $dir." ".$time; 
+
+?>
+ </h4>
+
+<table class="table table-striped table-bordered table-condensed">
+	<!-- Le styles 
+	<link href="css/bootstrap.css" rel="stylesheet">
+	<link href="css/bootstrap-responsive.css" rel="stylesheet">
+	-->
+	<tr>		
+	<!-- <th>Symbol</th>  -->	
+	<!-- 	<th> Source </th>
+		<th> 1 Day  </th>
+		<th> 5 Day </th>
+		<th> 30 Day </th>
+		<th> 365 Day </th>
+		<th> N </th>	
+	 -->
+	 <th> Source </th>  
+	 <th> <?php 
+	 	if ($timeframe == "1d"){
+			$time = "1 Day";
+
+		} else if ($timeframe == "5d") {
+			$time =  "5 Day";
+
+		} else if ($timeframe == "30d") {
+			$time =  "30 Day";
+
+		} else if ($timeframe == "365d") {
+			$time =  "365 Day";
+
+		}
+
+		echo $time;
+		
+	 ?> </th>
+	 
+	 <th> N </th>
+	 	
+	</tr>
+	<?php foreach($trStatsFinal as $stat): ?>
+		<tr>
+		<!-- 	<td><?php echo $stat['symbol']; ?></td>  -->	
+			<td>
+				<?php  $fullURL = "http://".$stat['displayURL']; ?>
+				<a href="<?php echo $fullURL; ?>" >
+			 <?php  
+				 
+			$url = $stat['displayURL'];
+			$replacement = "";
+			$search = ".com";
+			$url = str_replace($search, $replacement, $url);
+			echo $url;	
+			 ?>
+				 </a>
+			</td>
+			
+			<td> <?php
+		if ($timeframe == "1d"){
+			 if (!is_Nan($stat['1d'])){
+							echo round($stat['1d'] * 100, 2)."%" ;
+							//echo "%";
+						}else{
+							echo "NAN";
+						}
+
+		} else if ($timeframe == "5d") {
+			 if (!is_Nan($stat['5d'])){
+							echo round($stat['5d'] * 100, 2)."%" ;
+							//echo "%";
+						}else{
+							echo "NAN";
+						} 
+
+		} else if ($timeframe == "30d") {
+			if (!is_Nan($stat['30d'])){
+							echo round($stat['30d'] * 100, 2)."%" ;
+							//echo "%";
+						}else{
+							echo "NAN";
+						}
+
+		} else if ($timeframe == "365d") {
+			$time =  "365 Day";
+			 if (!is_Nan($stat['365d'])){
+							echo round($stat['365d'] * 100, 2)."%" ;
+							//echo "%";
+						}else{
+							echo "NAN";
+						}
+			}
+		 ?></td>
+						
+		
+<!-- 			<td><?php  if (!is_Nan($stat['1d'])){
+							echo round($stat['1d'] * 100, 2)."%" ;
+							//echo "%";
+						}else{
+							echo "NAN";
+						} ?></td>
+			
+			<td><?php if (!is_Nan($stat['5d'])){
+							echo round($stat['5d'] * 100, 2)."%" ;
+							//echo "%";
+						}else{
+							echo "NAN";
+						} ?></td>
+			
+			<td><?php 
+						if (!is_Nan($stat['30d'])){
+							echo round($stat['30d'] * 100, 2)."%" ;
+							//echo "%";
+						}else{
+							echo "NAN";
+						} ?></td>
+			
+			<td><?php if (!is_Nan($stat['365d'])){
+							echo round($stat['365d'] * 100, 2)."%" ;
+							//echo "%";
+						}else{
+							echo "NAN";
+						} ?></td>
+	 -->					
+			<td><?php echo $stat['n']; ?></td>
+			
+		</tr>
+	<?php endforeach; ?>
+
+</table>
+</div>

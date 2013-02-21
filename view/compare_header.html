@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Compare Stocks | CS336 - Phase III</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- Le styles -->
+<link href="view/css/bootstrap.css" rel="stylesheet">
+<link href="view/css/bootstrap-responsive.css" rel="stylesheet">
+</head>
+
+<body class="container">
+
+	<div class="page-header">
+		<h1>
+			CS336 - Phase III <small>By: <?php echo implode(', ', $authors); ?>
+			</small>
+		</h1>
+		
+		<h3> Compare Stocks </h3>
+
+	</div>
+
+
+	<p>
+	<form method="post">
+		<table>
+			<tr>
+				<td><label for="stock1">Stock symbol:</label> <input type="text"
+					name="stock1" /> Vs. </td>
+					
+					
+				<td><label for="stock2">Stock symbol:</label> <input type="text"
+					name="stock2" /></td>	
+					
+			</tr>
+			<tr>		
+				<td><label for="website">Website:</label>
+				
+				<select name ="website">	
+							<optgroup label="website">
+								<option  value= ""> Any Site </option> 
+								<?php
+								include("config.php");
+								$localDB = mysql_connect($sql_address, $sql_username, $sql_password);
+				
+								$query = mysql_query("SELECT DISTINCT url FROM websites ORDER BY url ASC", $localDB);
+								while($result = mysql_fetch_array($query)) {
+									echo "<option name="."website"." value=".$result['url']."> ".$result['url']." </option>";
+								}
+								?>
+							</optgroup>
+						</select>
+				 
+				</td>
+				<td><label for="year">Year:</label> <input type="text"
+					name="year" /></td>
+			</tr>
+			<tr>
+				<td><br> <input type="submit" value="Compare" /></td>
+			</tr>
+		</table>
+
+	</form>
+	
+	<a href="index.php"> [Home] </a> <a href="import.php" >[Upload Recommendations]</a> <a href="view/about.html" > [About] </a>   <a href="compare.php" > [Compare Stocks] </a> 
+	</p>
+
+
+	<?php if(array_key_exists("query", $_POST)): ?>
+	<h3>
+		Query: <small>
+			<?php echo $_POST['query']; ?>
+		</small>
+	</h3>
+	<?php endif; ?>

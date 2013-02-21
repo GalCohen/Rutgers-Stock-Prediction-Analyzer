@@ -1,0 +1,132 @@
+<table class="table table-striped table-bordered" id="performanceTable">
+	<!-- Le styles -->
+	<link href="css/bootstrap.css" rel="stylesheet">
+	<link href="css/bootstrap-responsive.css" rel="stylesheet">
+	
+	<tr>
+	<!-- 	<style type="text/css">
+			img {width: 30%;}
+		</style>
+	 -->		
+		<th>Symbol</th>
+		
+		<th> Source <?php
+		echo "<a href=\"tableSorting.php?tbl=".$tableName."&sort=1&dir=1\" > <i class=\"icon-chevron-up\"> </i> </a>"; 
+		echo "<a href=\"tableSorting.php?tbl=".$tableName."&sort=1&dir=0\" > <i class=\"icon-chevron-down\"> </i> </a>";
+		?></th>
+		
+		
+		<th> Date <?php
+		echo "<a href=\"tableSorting.php?tbl=".$tableName."&sort=2&dir=1\" > <i class=\"icon-chevron-up\"> </i> </a>"; 
+		echo "<a href=\"tableSorting.php?tbl=".$tableName."&sort=2&dir=0\" > <i class=\"icon-chevron-down\"> </i> </a>"; 
+		?></th>
+		
+		<th> Recommendations <?php
+		echo "<a href=\"tableSorting.php?tbl=".$tableName."&sort=3&dir=1\" > <i class=\"icon-chevron-up\"> </i> </a>"; 
+		echo "<a href=\"tableSorting.php?tbl=".$tableName."&sort=3&dir=0\" > <i class=\"icon-chevron-down\"> </i> </a>"; 
+		?></th>
+		
+		<th> 1 Day <?php
+		echo "<a href=\"tableSorting.php?tbl=".$tableName."&sort=4&dir=1\" > <i class=\"icon-chevron-up\"> </i> </a>"; 
+		echo "<a href=\"tableSorting.php?tbl=".$tableName."&sort=4&dir=0\" > <i class=\"icon-chevron-down\"> </i> </a>";
+		?></th>
+		
+		<th> 5 Day <?php
+		echo "<a href=\"tableSorting.php?tbl=".$tableName."&sort=5&dir=1\" > <i class=\"icon-chevron-up\"> </i> </a>"; 
+		echo "<a href=\"tableSorting.php?tbl=".$tableName."&sort=5&dir=0\" > <i class=\"icon-chevron-down\"> </i> </a>";
+		?></th>
+		
+		<th> 30 Day <?php
+		echo "<a href=\"tableSorting.php?tbl=".$tableName."&sort=6&dir=1\" > <i class=\"icon-chevron-up\"> </i> </a>"; 
+		echo "<a href=\"tableSorting.php?tbl=".$tableName."&sort=6&dir=0\" > <i class=\"icon-chevron-down\"> </i> </a>";
+		?></th>
+		
+		<th> 365 Day <?php
+		echo "<a href=\"tableSorting.php?tbl=".$tableName."&sort=7&dir=1\" > <i class=\"icon-chevron-up\"> </i> </a>"; 
+		echo "<a href=\"tableSorting.php?tbl=".$tableName."&sort=7&dir=0\" > <i class=\"icon-chevron-down\"> </i> </a>";
+		?></th>
+		
+
+		
+	</tr>
+	<?php foreach($recommendations as $rec): ?>
+		<tr>
+			<td><?php echo $rec['symbol']; ?></td>
+			<td><?php 
+			
+			
+			$linkArray = parse_url($rec['url']);
+			//var_dump($linkArray);
+
+			$url = $linkArray['host'];
+			//if (strstr($url, "www.")){
+				$replacement = "";
+				$search = "www.";
+				$url = str_replace($search, $replacement, $url);
+			//}
+
+			//echo $rec['url'];
+			$resultLink = "<a href=".$rec['url']."> ".$url." </a>";
+			
+			//echo "<a href=\"".$rec['url']."\">  </a>"; 
+			echo $resultLink;
+			
+			?></td>
+		
+			
+			<td><?php echo $rec['date']; ?></td>
+			<?php
+				if ($rec['direction'] == "1"){
+					echo '<td class="buy"> Buy </td>';
+				}else if ($rec['direction'] == "-1"){
+					echo '<td class="sell" > Sell </td>';
+				}else {
+					echo '<td align="center"> Hold </td>';
+				}
+			?>
+	<!-- 		<td ><?php  
+				
+				if ($rec['direction'] == "1"){
+					echo "Buy";
+				}else if ($rec['direction'] == "-1"){
+					echo "Sell";
+				}else {
+					echo "Hold";
+				}			
+
+			?></td>
+	 -->
+			<td><?php  if (!is_Nan($rec['1d'])){
+							echo round($rec['1d'] * 100, 2)."%" ;
+							//echo "%";
+						}else{
+							echo "NAN";
+						} ?></td>
+			
+			<td><?php if (!is_Nan($rec['5d'])){
+							echo round($rec['5d'] * 100, 2)."%" ;
+							//echo "%";
+						}else{
+							echo "NAN";
+						} ?></td>
+			
+			<td><?php 
+						if (!is_Nan($rec['30d'])){
+							echo round($rec['30d'] * 100, 2)."%" ;
+							//echo "%";
+						}else{
+							echo "NAN";
+						} ?></td>
+			
+			<td><?php if (!is_Nan($rec['365d'])){
+							echo round($rec['365d'] * 100, 2)."%" ;
+							//echo "%";
+						}else{
+							echo "NAN";
+						} ?></td>
+			
+		</tr>
+	<?php endforeach; ?>
+
+</table>
+

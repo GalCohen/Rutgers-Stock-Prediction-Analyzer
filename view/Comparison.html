@@ -1,0 +1,164 @@
+<table class="table table-striped table-bordered">
+	<tr>
+		<th>Symbol 1</th>
+		<th>Source</th>
+		<th>Date</th>
+		<th>Recommendation</th>
+		<th>1 Day <br> Performance</th>
+		<th>5 Day <br> Performance</th>
+		<th>30 Day <br> Performance</th>
+		<th>365 Day <br> Performance </th>
+		
+		<th>Symbol 2</th>
+		<th>Source</th>
+		<th>Date</th>
+		<th>Recommendation</th>
+		<th>1 Day <br> Performance</th>
+		<th>5 Day <br> Performance</th>
+		<th>30 Day <br> Performance</th>
+		<th>365 Day <br> Performance </th>
+		
+		
+		
+	</tr>
+	<?php $rec2 = next($recommendations2); foreach($recommendations as $rec): ?>
+		<tr>
+			<td><?php echo $rec['symbol']; ?></td>
+			
+			<td><?php 	
+			
+			$linkArray = parse_url($rec['url']);
+			//var_dump($linkArray);
+
+			$url = $linkArray['host'];
+			//if (strstr($url, "www.")){
+				$replacement = "";
+				$search = "www.";
+				$url = str_replace($search, $replacement, $url);
+			//}
+
+			//echo $rec['url'];
+			$resultLink = "<a href=".$rec['url']."> ".$url." </a>";
+			
+			//echo "<a href=\"".$rec['url']."\">  </a>"; 
+			echo $resultLink;
+			
+			?></td>
+			
+			<td><?php echo $rec['date']; ?></td>
+			
+			<td><?php  
+				
+				if ($rec['direction'] == "1"){
+					echo "Buy";
+				}else if ($rec['direction'] == "-1"){
+					echo "Sell";
+				}else {
+					echo "Hold";
+				}			
+
+			?></td>
+			<td><?php  if (!is_Nan($rec['1d'])){
+							echo round($rec['1d'] * 100, 2)."%" ;
+							//echo "%";
+						}else{
+							echo "NAN";
+						} ?></td>
+			
+			<td><?php if (!is_Nan($rec['5d'])){
+							echo round($rec['5d'] * 100, 2)."%" ;
+							//echo "%";
+						}else{
+							echo "NAN";
+						} ?></td>
+			
+			<td><?php 
+						if (!is_Nan($rec['30d'])){
+							echo round($rec['30d'] * 100, 2)."%" ;
+							//echo "%";
+						}else{
+							echo "NAN";
+						} ?></td>
+			
+			<td><?php if (!is_Nan($rec['365d'])){
+							echo round($rec['365d'] * 100, 2)."%" ;
+							//echo "%";
+						}else{
+							echo "NAN";
+						} ?></td>
+						
+			<!--   -->
+			
+			<td><?php echo $rec2['symbol']; ?></td>
+			
+			<td><?php 	
+			
+			$linkArray = parse_url($rec2['url']);
+			//var_dump($linkArray);
+
+			$url = $linkArray['host'];
+			//if (strstr($url, "www.")){
+				$replacement = "";
+				$search = "www.";
+				$url = str_replace($search, $replacement, $url);
+			//}
+
+			//echo $rec2['url'];
+			$resultLink = "<a href=".$rec2['url']."> ".$url." </a>";
+			
+			//echo "<a href=\"".$re2c['url']."\">  </a>"; 
+			echo $resultLink;
+			
+			?></td>
+			
+			<td><?php echo $rec2['date']; ?></td>
+			
+			<td><?php  
+				
+				if ($rec2['direction'] == "1"){
+					echo "Buy";
+				}else if ($rec2['direction'] == "-1"){
+					echo "Sell";
+				}else {
+					echo "Hold";
+				}			
+
+			?></td>
+			<td><?php  if (!is_Nan($rec2['1d'])){
+							echo round($rec2['1d'] * 100, 2)."%" ;
+							//echo "%";
+						}else{
+							echo "NAN";
+						} ?></td>
+			
+			<td><?php if (!is_Nan($rec2['5d'])){
+							echo round($rec2['5d'] * 100, 2)."%" ;
+							//echo "%";
+						}else{
+							echo "NAN";
+						} ?></td>
+			
+			<td><?php 
+						if (!is_Nan($rec2['30d'])){
+							echo round($rec2['30d'] * 100, 2)."%" ;
+							//echo "%";
+						}else{
+							echo "NAN";
+						} ?></td>
+			
+			<td><?php if (!is_Nan($rec2['365d'])){
+							echo round($rec2['365d'] * 100, 2)."%" ;
+							//echo "%";
+						}else{
+							echo "NAN";
+						} ?></td>			
+						
+						
+			
+		</tr>
+	<?php endforeach; ?>
+
+	
+
+</table>
+

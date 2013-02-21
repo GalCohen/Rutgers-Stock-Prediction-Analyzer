@@ -1,0 +1,83 @@
+@CHARSET "UTF-8";
+
+.tables {
+/*	width:	460px;
+	float:	left;
+	margin:	5px;
+*/
+/*	width:	231px;
+	float:	left;
+	margin:	2px;
+*/
+
+	width:	241px;
+	float:	left;
+	margin:	2px;
+
+}
+
+.container{
+	width:	990px;
+}
+
+.page-header{
+	margin-top:	75px;
+}
+
+.pagination{
+	width:	244px;
+	margin-left:	auto;
+	margin-right:	auto;
+	background-color: white;
+}
+
+.pagination ul, li{
+	background-color: white;
+}
+
+
+
+#searchform{
+	width:	695px;
+	margin-left:	auto;
+	margin-right:	auto;
+}
+
+.navbar navbar-fixed-top{
+	height:	80px;	
+}	
+
+#formsearh{
+	padding-top:	12px; 
+	padding-bottom:	12px;
+}
+
+.help{
+	color:	gray;
+		
+}
+
+#performanceTable .buy{
+	color:	green;
+	text-align:center;
+}
+
+#performanceTable .sell{
+	color:	red;
+	text-align:center;
+}
+
+.wrapper{
+	background-color: #F2F4FC; 
+	padding: 5px;
+}
+
+
+.nav li{
+	background-color: #2a2a2a;
+}
+
+
+#features ul, li{
+	background-color: #F2F4FC; 
+}

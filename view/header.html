@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+	<meta charset="utf-8">
+	<title>Rutgers Stock Prediction Analyzer</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	
+	<!-- Le styles -->
+	<link href="view/css/bootstrap.css" rel="stylesheet">
+	<link href="view/css/bootstrap-responsive.css" rel="stylesheet">
+	<link href="view/css/Gal.css" rel="stylesheet">
+	
+	<script type="text/javascript" src="view/js/jquery.js"  ></script>
+	
+	<script type="text/javascript">
+
+ 	function insert(tableName, col) {
+ 		 /* Send the data using post and put the results in a div */
+ 		 //alert("test1" + tableName + col);
+ 	    $.post( "displayStats.php", { table: tableName, column: col },
+ 	      function( data ) {
+ 	    		//alert("test2" + tableName + col);
+ 	          $( "#tablesDiv" ).empty().append( data );
+ 	      }
+ 	    );		
+
+	}
+ 
+	</script>
+		<script type="text/javascript">
+		$("li").click(function(e) {
+		    //e.preventDefault();
+		    //$('.disa').addClass('expanded');
+		    //$('.disabled').fadeIn(300);
+		    //return false;
+		    alert("test??");
+		    return false;
+		});
+		//document.write("Hello World!")
+
+	</script>
+	
+
+
+	
+	<?php
+		include("config.php");
+		$localDB = mysql_connect($sql_address, $sql_username, $sql_password);
+
+		$queryWebs = mysql_query("SELECT UPDATE_TIME FROM information_schema.tables WHERE TABLE_NAME = \"websites\"" , $localDB);
+		$queryRecs = mysql_query("SELECT UPDATE_TIME FROM information_schema.tables WHERE TABLE_NAME = \"recommendations\"" , $localDB);
+
+		while($result = mysql_fetch_array($queryWebs)) {
+			$dateWebs = strtotime( $result['UPDATE_TIME']);
+		}
+	
+		while($result = mysql_fetch_array($queryRecs)) {
+			$dateRecs = strtotime ( $result['UPDATE_TIME']) ;
+		}
+
+		if ($dateWebs < $dateRecs){
+			echo "<h3> Please wait... optimizing the page load time. Note: This will only happen once.</h3>";
+			include("buildWebsiteTable.php");
+			echo "<h3> ...Done!</h3>";
+		}
+
+	?>
+	
+</head>
+<body class="container">
+<div class="wrapper">
+	
+	<div class="navbar navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container">
+          <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </a>
+          <a class="brand" href="index.php">RSPA</a>
+          <div class="nav-collapse">
+            <ul class="nav">
+              <li class="active">
+                <a href="index.php">Home</a>
+              </li>
+              <li class="">
+                <a href="import.php">Import CSV</a>
+              </li>
+              <li class="">
+                <a href="view/about.html">About</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+	<div class="page-header">
+		<h1>
+			Rutgers Stock Prediction Analyzer <small>By: <?php echo implode(', ', $authors); ?>
+			</small>
+		</h1>
+		<h3> <small> Over <em> 1 million </em> stock recommendation extracted from about 80 websites! </h3>
+	</div>
+	
+	
+
+	<p>
+	<form method="post" action="index.php" class="well" id="formsearh">
+		<table id="searchform">
+			<tr>
+				<td><label for="stock">Stock symbol: <span class="help"> e.g., ABC </span> </label> <input type="text"
+					name="stock" id="stck"/></td>
+				<td><label for="website">Website: <span class="help"> e.g., socialpicks.com  </span> </label>
+		<!-- 		<input type="text" name="website"/>  -->
+		 	
+				<select name ="website" id="wbst">	
+							<optgroup label="website">
+								<option value= ""> Any Site </option> 
+								<?php
+								include("config.php");
+								$localDB = mysql_connect($sql_address, $sql_username, $sql_password);
+				
+								$query = mysql_query("SELECT DISTINCT url FROM websites ORDER BY url ASC", $localDB);
+								while($result = mysql_fetch_array($query)) {
+									echo "<option name="."website"." value=".$result['url']."> ".$result['url']." </option>";
+								}
+								?>
+							</optgroup>
+						</select>
+				 
+				</td>
+				<td><label for="year">Year: <span class="help"> e.g., 2008 </span> </label> <input type="text"
+					name="year" id="yr"/></td>
+				<td><br> <input type="submit" value="Go"  /></td>
+			</tr>
+		</table>
+
+<!--  	Recommendations <input type="radio" name="query_type"
+			group="query_type" value="Recommendations" checked /> Prices <input
+			type="radio" name="query_type" group="query_type" value="Prices" />
+		Performance <input type="radio" name="query_type" group="query_type"
+			value="Performance" />
+-->
+	</form>
+	
+	<div id="tablesDiv">	</div>
+	
+<!-- 	<a href="index.php" >[Homepage]</a> <a href="import.php" >[Upload Recommendations]</a> <a href="view/about.html" > [About] </a>  --> 
+	</p>
+
+	
+
+	<?php if(array_key_exists("query", $_POST)): ?>
+	<h3>
+		Query: <small>
+			<?php echo $_POST['query']; ?>
+		</small>
+	</h3>
+	<?php endif; ?>

@@ -1,0 +1,11 @@
+<!--  $first . $prev . $next . $last; -->
+
+
+<div class="pagination">
+  <ul>
+    <li class="<?php if ($first == '&nbsp;'){ echo 'disabled';} ?>" > <a href="<?php if ($first == '&nbsp;'){ echo '&#35;';}else{ echo $first;} ?>">First</a></li>
+    <li class="<?php if ($next == '&nbsp;'){ echo 'disabled';} ?>" > <a href="<?php if ($next == '&nbsp;'){ echo '&#35;';}else{ echo $next;} ?>">Next</a></li>
+    <li class="<?php if ($prev == '&nbsp;'){ echo 'disabled';} ?>" > <a href="<?php if ($prev == '&nbsp;'){ echo '&#35;';}else{ echo $prev;} ?>">Previous</a></li>
+    <li class="<?php if ($last == '&nbsp;'){ echo 'disabled';} ?>" > <a href="<?php if ($last == '&nbsp;'){ echo '&#35;';}else{ echo $last;} ?>">Last</a></li>
+  </ul>
+</div>

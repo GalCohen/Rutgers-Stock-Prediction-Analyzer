@@ -1,0 +1,24 @@
+
+<table class="table table-striped table-bordered">
+	<tr>
+		<th>Symbol</th>
+		<th>Date</th>
+		<th>Open</th>
+		<th>Low</th>
+		<th>High</th>
+		<th>Close</th>
+		<th>Volume</th>
+	</tr>
+	<?php foreach($prices as $price): ?>
+		<tr>
+			<td><?php echo $price['stock_symbol']; ?></td>
+			<td><?php echo $price['trade_date']; ?></td>
+			<td><?php echo $price['open']; ?></td>
+			<td><?php echo $price['low']; ?></td>
+			<td><?php echo $price['high']; ?></td>
+			<td><?php echo $price['close']; ?></td>
+			<td><?php echo $price['volume']; ?></td>
+		</tr>
+	<?php endforeach; ?>
+
+</table>
